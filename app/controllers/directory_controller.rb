@@ -16,13 +16,22 @@ class DirectoryController < ApplicationController
 
   def details
     @dir_id = params.fetch("dir_id")
-    dir = Directory.where({ :id => @dir_id })
-    @the_directory = dir.at(0)
-
-    the_user = User.where({ :id => @the_directory.user_id })
-    @the_user = the_user.at(0)
-
-    render( :template => "directory_templates/details")
-  end 
-
+    
+    @the_directory = Directory.find_by(id: @dir_id)
+    if @the_directory.nil?
+      redirect_to("/directory", { :alert => "Directory not found." }) and return
+    end
+    
+    @the_user = User.find_by(id: @the_directory.user_id)
+  
+    # Get all Dirtolink records for this directory
+    dirtolinks = Dirtolink.where(dir_id: @dir_id)
+  
+    # Map each Dirtolink to its associated Link
+    @sites_lst = dirtolinks.map do |dirtolink|
+      Link.find_by(id: dirtolink.link_id)
+    end.compact # remove any nil entries if Link is not found
+  
+    render(template: "directory_templates/details")
+  end
 end

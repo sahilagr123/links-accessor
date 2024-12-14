@@ -1,0 +1,2 @@
+class Dirtolink < ApplicationRecord
+end

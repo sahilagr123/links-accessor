@@ -20,22 +20,31 @@
 <div>
   <% if current_user != nil %>
     <% if (current_user.id == @the_user.id) %>
-      <% allow_delete = true %>
       <div>
-        
-          <form action="/insert_site_initial" method="post">
+        <h2>
+          Search for a new site
+        </h2>
+          <form action="/insert_site_initial" method="get">
+            <div>
+              <label for="link_box">
+                Link:
+                <input type="text" id="link_box" name="query_link">
+              </label>
+            </div>
+
+            <div>
+              <input type="hidden" name="query_dir_id" value="<%= @the_directory.id %>">
+            </div>
 
             <button>
-              Add a new site
+              Add Site
             </button>
-
           </form>
-      <% end %>
-      <% else %>
-        <% allow_delete = false %>
-        <p> You must be <a href="/users/sign_in">signed in</a> with the right account to edit this directory.</p>
-      <% end %>
-    </div>
+    <% end %>
+    <% else %>
+        <p> You must be <a href="/users/sign_in">signed in</a> with the right account to edit this profile.</p>
+  <% end %>
+      </div>
 </div>
 
 <hr>
@@ -48,8 +57,13 @@
 
 <hr>
 
+<h2>
+    Sites
+</h2>
 
-<ul>
-  
-  
-</ul>
+<div> 
+  <% @sites_lst.each do |a_site| %>
+    <%= a_site.name %><br>
+  <% end %>
+
+</div>

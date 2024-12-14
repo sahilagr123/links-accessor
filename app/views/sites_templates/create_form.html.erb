@@ -1,0 +1,62 @@
+<h1> Add a site </h1>
+
+<div>
+  <div>
+    <h2>
+      Search for a new site
+    </h2>
+    <div>
+      Link: <%= @link %>
+    </div>
+    <form action="/insert_site" method="post">
+      <h3> Site doesn't exist yet? Please add manually below. </h3>
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+        <input type="text" id="name_box" name="query_name">
+      </div>
+
+      <input type="hidden" name="query_dir" value="<%= @dir_id %>">
+      <input type="hidden" name="query_link" value="<%= @link %>">
+
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+        <input type="text" id="description_box" name="query_description">
+      </div>
+
+      <button type="submit">
+        Add Site
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+
+<h2>
+Results
+</h2>
+
+<ul>
+  
+  <% @matching_links.each do |a_site| %>
+    <li>
+      <a href="/<%= a_site.link %>">
+        <%= a_site.link %>
+      </a>
+      <form action="/add_old_site" method="post">
+        <input type="hidden" name="query_dir_id" value="<%= @dir_id %>">
+        <input type="hidden" name="query_link_id" value="<%= a_site.id %>">
+
+        <button>
+          Add Site
+        </button>
+      </form>
+
+      <hr>
+    </li>
+  <% end %>
+</ul>
