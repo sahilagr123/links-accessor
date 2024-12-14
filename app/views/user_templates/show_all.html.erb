@@ -1,0 +1,43 @@
+<h1>Most Popular links</h1>
+
+<p>Links are sorted according to how many directories they have been added to.</p>
+
+<style>
+table, th, td {
+border:0.5px solid black;
+}
+</style>
+
+<table style="width:100%">
+  <tr>
+    <th>Name</th>
+    <th>Link</th>
+    <th>Count</th>
+    <th>Added on</th>
+  </tr>
+
+  <% @site_lst.each do |site| %>
+    <tr>
+      <td>
+        <%= site.name %>
+      </td>
+
+      <td>
+        <% if site.link.include? "https://"%>
+          <a href="<%= site.link %>" target="_blank"><%= site.link %></a>
+        <% else %>
+          <a href="https://<%= site.link %>" target="_blank"><%= site.link %></a>
+        <% end %>
+      </td>
+
+      <td>
+        <%= site.clicked_on %>
+      </td>
+
+      <td>
+        <%= (site.created_at).strftime("%B %-d, %Y") %>
+      </td>
+
+    </tr>
+  <% end %>
+</table>

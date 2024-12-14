@@ -1,4 +1,24 @@
 class UserController < ApplicationController
+  
+  def show_all_links
+    # Fetch all links
+    list_of_sites = Link.all
+  
+    # Update clicked_on count for each link
+    list_of_sites.each do |site|
+      # Count how many Dirtolinks reference this link
+      count = Dirtolink.where(link_id: site.id).count
+  
+      # Update the database record with the new clicked_on value
+      site.update(clicked_on: count)
+    end
+  
+    # Retrieve all sites ordered by clicked_on in descending order (highest first)
+    @site_lst = Link.order(clicked_on: :desc)
+  
+    render(template: "user_templates/show_all")
+  end
+  
   def index
     @list_of_users = User.all.order(:created_at)
 
