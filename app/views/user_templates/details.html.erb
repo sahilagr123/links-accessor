@@ -68,6 +68,12 @@
         <%= a_directory.created_at %>
       </div>
 
+      <form action="/open_all" method="post">
+        <input type="hidden" name="dir_id" value="<%= a_directory.id %>">
+        <button>
+          Open all items
+        </button>
+      </form>
     </li>
   <% end %>
 </ul>

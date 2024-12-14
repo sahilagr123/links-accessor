@@ -1,5 +1,23 @@
 class DirectoryController < ApplicationController
 
+  def open_all_links
+    dir_id = params.fetch("dir_id")
+    dirtolinks = Dirtolink.where(dir_id: dir_id)
+    linklst = []
+  
+    dirtolinks.each do |dirtolink|
+      site = Link.find_by(id: dirtolink.link_id)
+      next if site.nil?
+  
+      if site.link.start_with?("https://")
+        linklst.push(site.link)
+      else
+        linklst.push("https://" + site.link)
+      end
+      
+    end
+  end
+
   def create
     the_directory = Directory.new
     the_directory.name = params.fetch("query_name")

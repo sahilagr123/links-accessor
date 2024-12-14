@@ -66,7 +66,11 @@
   <% @sites_lst.each do |a_site| %>
     <span>
       <%= a_site.name %>: 
-      <a href="<%= a_site.link %>"><%= a_site.link %></a>
+      <% if a_site.link.include? "https://"%>
+        <a href="<%= a_site.link %>" target="_blank"><%= a_site.link %></a>
+      <% else %>
+        <a href="https://<%= a_site.link %>" target="_blank"><%= a_site.link %></a>
+      <% end %>
       <% if allow_delete == true %>
         <form action="/delete_from_directory" method="post" style="display:inline;">
           <input type="hidden" name="query_link_id" value="<%= a_site.id %>">

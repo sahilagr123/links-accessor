@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post("/delete_from_directory", { :controller => "site", :action => "delete"})
 
   get("/add_site/:dir_id/:site_id", { :controller => "site", :action => "add_old_site"})
+  post("/open_all", { :controller => "directory", :action => "open_all_links"})
   #get("/", { :controller => "home", :action => "index"})
   # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
 
