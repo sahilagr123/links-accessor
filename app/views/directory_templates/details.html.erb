@@ -16,10 +16,11 @@
   </div>
 <hr>
 
-
+<% allow_delete = false %>
 <div>
   <% if current_user != nil %>
     <% if (current_user.id == @the_user.id) %>
+      <% allow_delete = true %>
       <div>
         <h2>
           Search for a new site
@@ -63,7 +64,17 @@
 
 <div> 
   <% @sites_lst.each do |a_site| %>
-    <%= a_site.name %><br>
+    <span>
+      <%= a_site.name %>: 
+      <a href="<%= a_site.link %>"><%= a_site.link %></a>
+      <% if allow_delete == true %>
+        <form action="/delete_from_directory" method="post" style="display:inline;">
+          <input type="hidden" name="query_link_id" value="<%= a_site.id %>">
+          <input type="hidden" name="query_dir_id" value="<%= @the_directory.id %>">
+          <button>Delete</button>
+        </form>
+      <% end %>
+    </span>
+    <br>
   <% end %>
-
 </div>

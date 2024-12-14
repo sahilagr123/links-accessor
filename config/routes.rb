@@ -10,7 +10,8 @@ Rails.application.routes.draw do
 
   get("/insert_site_initial", { :controller => "site", :action => "create_form"})
   post("/insert_site", { :controller => "site", :action => "create"})
-  #post("/add_old_site", { :controller => "site", :action => "add_old_site"})
+  post("/add_old_site", { :controller => "site", :action => "add_old_site"})
+  post("/delete_from_directory", { :controller => "site", :action => "delete"})
 
   get("/add_site/:dir_id/:site_id", { :controller => "site", :action => "add_old_site"})
   #get("/", { :controller => "home", :action => "index"})

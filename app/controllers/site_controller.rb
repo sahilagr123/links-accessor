@@ -1,5 +1,23 @@
 class SiteController < ApplicationController
 
+  def add_old_site #add a pre-existing site to directory
+    connection = Dirtolink.new
+    connection.dir_id = params.fetch("query_dir_id")
+    connection.link_id = params.fetch("query_link_id")
+
+    matches = Dirtolink.where({ :dir_id => connection.dir_id, :link_id => connection.link_id })
+
+    if matches.present?
+      redirect_to("/directory/#{connection.dir_id}", { :notice => "Duplicate item entered"})
+    elsif connection.valid?
+      connection.save
+      redirect_to("/directory/#{connection.dir_id}", { :notice => "Site created successfully." })
+    else
+      redirect_to("/", { :alert => the_directory.errors.full_messages.to_sentence })
+    end
+  end
+
+
   def create_form #go to the create form page
     @link = params.fetch("query_link")
     @dir_id = params.fetch("query_dir_id")
@@ -34,6 +52,20 @@ class SiteController < ApplicationController
     else
       # Use the_site for error messages, since the_directory is not defined
       redirect_to("/", { :alert => the_site.errors.full_messages.to_sentence })
+    end
+  end
+
+  def delete
+    link_id = params.fetch("query_link_id")
+    dir_id = params.fetch("query_dir_id")
+    matches = Dirtolink.where({ :link_id => link_id })
+    match = matches.at(0)
+
+    if match.present?
+      match.destroy #destroy the connection between directory and link
+      redirect_to("/directory/#{dir_id}", { :notice => "Site deleted from directory" })
+    else
+      redirect_to("/", { :alert => "Error - link could not be deleted" })
     end
   end
 end
