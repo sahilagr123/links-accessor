@@ -45,7 +45,7 @@
 
 <div>
   <div>
-    Joined on: <%= @the_user.created_at %>
+    Joined on: <%= (@the_user.created_at).strftime("%B %-d, %Y") %>
   </div>
 </div>
 
@@ -65,7 +65,7 @@
       </div>
 
       <div>
-        <%= a_directory.created_at %>
+        Created on: <%= (a_directory.created_at).strftime("%B %-d, %Y") %>
       </div>
 
       <form action="/open_all" method="post">

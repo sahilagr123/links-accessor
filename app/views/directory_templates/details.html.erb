@@ -12,12 +12,12 @@
   </div>
 <hr>
   <div>
-    User joined on: <%= @the_user.created_at %>
+    User joined on: <%= (@the_user.created_at).strftime("%B %-d, %Y") %>
   </div>
 
 <hr>
   <div>
-    Directory created on: <%= @the_directory.created_at %>
+    Directory created on: <%= (@the_directory.created_at).strftime("%B %-d, %Y") %>
   </div>
 <hr>
 
