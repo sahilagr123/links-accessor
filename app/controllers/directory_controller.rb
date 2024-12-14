@@ -1,5 +1,24 @@
 class DirectoryController < ApplicationController
 
+  def delete
+    @dir_id = params.fetch("query_dir_id")
+    
+    Dirtolink.where(dir_id: @dir_id).destroy_all
+
+    directory = Directory.find_by(id: @dir_id)
+    if directory.present?
+      directory.destroy
+      redirect_to("/", notice: "Directory was deleted successfully")
+    else
+      redirect_to("/", alert: "Directory not found")
+    end
+  end
+
+  def confirm_delete
+    @dir_id = params.fetch("query_dir_id")
+    render(template: "directory_templates/confirm_delete")
+  end  
+
   def open_all_links
     dir_id = params.fetch("dir_id")
     dirtolinks = Dirtolink.where(dir_id: dir_id)

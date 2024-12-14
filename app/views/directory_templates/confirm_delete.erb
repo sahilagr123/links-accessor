@@ -1,0 +1,13 @@
+<h1> Confirm delete </h1>
+<p>Are you sure you want to delete? This action cannot be undone. </p>
+
+<form action="/directory_delete" method="post" style="display:inline;">
+  <input type="hidden" name="query_dir_id" value="<%= @dir_id %>">
+  <button>Delete directory</button>
+</form>
+
+
+<form action="/directory/<%= @dir_id %>" method="get" style="display:inline;">
+  <input type="hidden" name="query_dir_id" value="<%= @dir_id %>">
+  <button>Do not delete</button>
+</form>

@@ -27,7 +27,10 @@
     <% if (current_user.id == @the_user.id) %>
       <% allow_delete = true %>
 
-      
+      <form action="/directory_delete_confirmation" method="get" style="display:inline;">
+        <input type="hidden" name="query_dir_id" value="<%= @the_directory.id %>">
+        <button>Delete directory</button>
+      </form>
 
       <div>
         <h2>
