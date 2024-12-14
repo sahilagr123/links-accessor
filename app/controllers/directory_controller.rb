@@ -3,19 +3,21 @@ class DirectoryController < ApplicationController
   def open_all_links
     dir_id = params.fetch("dir_id")
     dirtolinks = Dirtolink.where(dir_id: dir_id)
-    linklst = []
-  
-    dirtolinks.each do |dirtolink|
+
+    @linklst = dirtolinks.map do |dirtolink|
       site = Link.find_by(id: dirtolink.link_id)
       next if site.nil?
-  
+
+      # Ensure the link starts with https://
       if site.link.start_with?("https://")
-        linklst.push(site.link)
+        site.link
       else
-        linklst.push("https://" + site.link)
+        "https://" + site.link
       end
-      
-    end
+    end.compact
+
+    # Render a view that will open all links
+    render(template: "directory_templates/open_all_links")
   end
 
   def create

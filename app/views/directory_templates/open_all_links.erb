@@ -1,0 +1,16 @@
+<h2>Opening All Links...</h2>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var links = [
+      <% @linklst.each do |link| %>
+        "<%= link %>",
+      <% end %>
+    ];
+
+    // Attempt to open each link in a new tab
+    links.forEach(function(url) {
+      window.open(url, "_blank");
+    });
+  });
+</script>
