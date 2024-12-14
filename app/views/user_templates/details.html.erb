@@ -1,0 +1,73 @@
+<div>
+  <div>
+    <h1>
+      <%= @the_user.email %>
+    </h1>
+  </div>
+</div>
+
+<div>
+  <% if current_user != nil %>
+    <% if (current_user.id == @the_user.id) %>
+      <div>
+        <h2>
+          Add a new directory
+        </h2>
+          <form action="/insert_directory" method="post">
+            <div>
+              <label for="name_box">
+                Name
+              </label>
+
+              <input type="text" id="name_box" name="query_name">
+            </div>
+
+            <div>
+              <label for="image_box">
+                Image
+              </label>
+
+              <input type="text" id="image_box" name="query_image">
+            </div>
+
+            <button>
+              Add directory
+            </button>
+          </form>
+      <% end %>
+      <% else %>
+        <p> You must be <a href="/users/sign_in">signed in</a> with the right account to edit this profile.</p>
+      <% end %>
+    </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    Joined on: <%= @the_user.created_at %>
+  </div>
+</div>
+
+<hr>
+
+
+<ul>
+
+  <% @matching_directories.each do |a_directory| %>
+    <li>
+      <a href="/directory/<%= a_directory.id %>">
+        <%= a_directory.name %>
+      </a>
+
+      <div>
+        <%= a_directory.image_url %>
+      </div>
+
+      <div>
+        <%= a_directory.created_at %>
+      </div>
+
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,55 @@
+<div>
+  <div>
+    <h1>
+      <%= @the_directory.name %>
+    </h1>
+  </div>
+</div>
+
+<hr>
+  <div>
+    Owner: <%= @the_user.email %>
+  </div>
+
+  <div>
+    Created on: <%= @the_directory.created_at %>
+  </div>
+<hr>
+
+
+<div>
+  <% if current_user != nil %>
+    <% if (current_user.id == @the_user.id) %>
+      <% allow_delete = true %>
+      <div>
+        
+          <form action="/insert_site_initial" method="post">
+
+            <button>
+              Add a new site
+            </button>
+
+          </form>
+      <% end %>
+      <% else %>
+        <% allow_delete = false %>
+        <p> You must be <a href="/users/sign_in">signed in</a> with the right account to edit this directory.</p>
+      <% end %>
+    </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    Joined on: <%= @the_user.created_at %>
+  </div>
+</div>
+
+<hr>
+
+
+<ul>
+  
+  
+</ul>

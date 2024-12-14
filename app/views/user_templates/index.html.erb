@@ -1,1 +1,50 @@
-<h1> User Index </h1>
+<div>
+  <div>
+    <h1>
+      All Users
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+
+  </div>
+</div>
+
+<hr>
+
+
+<style>
+table, th, td {
+border:1px solid black;
+}
+</style>
+
+<table style="width:100%">
+  <tr>
+    <th>Email</th>
+    <th>Joined on</th>
+    <th></th>
+  </tr>
+
+  <% @list_of_users.each do |a_user| %>
+    <tr>
+      <td>
+        <%= a_user.email %>
+      </td>
+
+      <td>
+        <%= a_user.created_at %>
+      </td>
+
+      <td>
+        <% user_id = a_user.id %>
+        <a href= "/users/<%= user_id %>">Show Details</a>
+      </td>
+
+    </tr>
+  <% end %>
+</table>
