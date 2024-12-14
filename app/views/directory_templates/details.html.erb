@@ -10,9 +10,14 @@
   <div>
     Owner: <%= @the_user.email %>
   </div>
-
+<hr>
   <div>
-    Created on: <%= @the_directory.created_at %>
+    User joined on: <%= @the_user.created_at %>
+  </div>
+
+<hr>
+  <div>
+    Directory created on: <%= @the_directory.created_at %>
   </div>
 <hr>
 
@@ -21,6 +26,9 @@
   <% if current_user != nil %>
     <% if (current_user.id == @the_user.id) %>
       <% allow_delete = true %>
+
+      
+
       <div>
         <h2>
           Search for a new site
@@ -50,13 +58,6 @@
 
 <hr>
 
-<div>
-  <div>
-    Joined on: <%= @the_user.created_at %>
-  </div>
-</div>
-
-<hr>
 
 <h2>
     Sites
